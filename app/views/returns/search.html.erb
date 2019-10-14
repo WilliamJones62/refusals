@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h2>RA</h2>
+<h3>Search</h3>
+
+<%= form_with url: returns_find_path, local: true, method: 'get' do |f| %>
+  <%= f.label:order_numb, 'Order Number:' %>
+  <%= f.text_field :order_numb, id: :return_order_numb %>
+  <%= f.submit "Submit" %>
+<% end %>

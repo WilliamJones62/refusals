@@ -1,0 +1,58 @@
+<%= form_with(model: ra, local: true) do |form| %>
+  <% if ra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ra.errors.count, "error") %> prohibited this return from being saved:</h2>
+
+      <ul>
+      <% ra.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :truck %>
+    <%= form.text_field :truck, :value => cookies[:truck], readonly: true %>
+    <%= form.label :order_numb %>
+    <%= form.text_field :order_numb, :value => $order_numb, readonly: true %>
+  </div>
+
+  <h3>Parts</h3>
+  <% i = 0 %>
+  <%= form.fields_for :return_parts do |p| %>
+    <table>
+      <% if i == 0 %>
+        <thead>
+          <tr>
+            <th> <%= p.label :part_code %> </th>
+            <th> <%= p.label :part_desc, 'Description' %> </th>
+            <th> <%= p.label :uom, 'UOM' %> </th>
+            <th> <%= p.label :order_qty %> </th>
+            <th> <%= p.label :qty, 'Returned qty' %> </th>
+            <th> <%= p.label :temperature %> </th>
+          </tr>
+        </thead>
+      <% end %>
+      <tbody>
+          <tr>
+            <td> <%= p.text_field :part_code, readonly: true, size: 10 %> </td>
+            <td> <%= p.text_field :part_desc, readonly: true, size: 58 %> </td>
+            <td> <%= p.text_field :uom, readonly: true, size: 3 %> </td>
+            <td> <%= p.number_field :order_qty, readonly: true, min: 0, step: 0.01, max: 1000 %> </td>
+            <% if @return.return_parts[i].uom == "OZ" %>
+              <td> <%= p.number_field :qty, id: :part_qty, min: 0, step: 0.01, max: 1000 %> </td>
+            <% else %>
+              <td> <%= p.number_field :qty, id: :part_qty, min: 0, step: 1, max: 1000000 %> </td>
+            <% end %>
+            <td> <%= p.number_field :temperature, id: :temperature, min: 10, step: 0.1, max: 100 %> </td>
+          </tr>
+      </tbody>
+      <% i += 1 %>
+    </table>
+  <% end %>
+  <br>
+  <div class="actions">
+    <%= form.submit "Confirm RA" %>
+  </div>
+<% end %>

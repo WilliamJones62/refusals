@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  refusal_id: 1
+  part_code: MyString
+  part_desc: MyString
+  uom: MyString
+  qty: 9.99
+
+two:
+  refusal_id: 1
+  part_code: MyString
+  part_desc: MyString
+  uom: MyString
+  qty: 9.99

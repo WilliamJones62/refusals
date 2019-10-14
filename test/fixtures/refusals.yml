@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice_numb: MyString
+  part_code: MyString
+  qty: 9.99
+
+two:
+  invoice_numb: MyString
+  part_code: MyString
+  qty: 9.99

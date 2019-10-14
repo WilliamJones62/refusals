@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  return_id: 1
+  part_code: MyString
+  part_desc: MyString
+  qty: 9.99
+  uom: MyString
+  order_qty: 9.99
+  confirmed: false
+
+two:
+  return_id: 1
+  part_code: MyString
+  part_desc: MyString
+  qty: 9.99
+  uom: MyString
+  order_qty: 9.99
+  confirmed: false

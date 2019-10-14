@@ -1,0 +1,58 @@
+<%= form_with(model: refusal, local: true) do |form| %>
+  <% if refusal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(refusal.errors.count, "error") %> prohibited this refusal from being saved:</h2>
+
+      <ul>
+      <% refusal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :truck %>
+    <%= form.text_field :truck, :value => cookies[:truck], readonly: true %>
+    <%= form.label :invoice_numb %>
+    <%= form.text_field :invoice_numb, :value => $invoice_numb, readonly: true %>
+  </div>
+
+  <h3>Parts</h3>
+  <% i = 0 %>
+  <%= form.fields_for :parts do |p| %>
+    <table>
+      <% if i == 0 %>
+        <thead>
+          <tr>
+            <th> <%= p.label :part_code %> </th>
+            <th> <%= p.label :part_desc, 'Description' %> </th>
+            <th> <%= p.label :uom %> </th>
+            <th> <%= p.label :invoice_qty,'Inv qty' %> </th>
+            <th> <%= p.label :qty, 'Ref qty' %> </th>
+            <th> <%= p.label :reason %> </th>
+          </tr>
+        </thead>
+      <% end %>
+      <tbody>
+          <tr>
+            <td> <%= p.text_field :part_code, readonly: true, size: 10 %> </td>
+            <td> <%= p.text_field :part_desc, readonly: true, size: 50 %> </td>
+            <td> <%= p.text_field :uom, readonly: true, size: 3 %> </td>
+            <td> <%= p.number_field :invoice_qty, readonly: true, min: 0, step: 0.01, max: 100 %> </td>
+            <% if @refusal.parts[i].uom == "OZ" %>
+              <td> <%= p.number_field :qty, id: :part_qty, min: 0, step: 0.01, max: 100 %> </td>
+            <% else %>
+              <td> <%= p.number_field :qty, id: :part_qty, min: 0, step: 1, max: 100 %> </td>
+            <% end %>
+            <td> <%= p.select :reason, @reason, {:include_blank => true}, {:value => params[:refusals_reason]} %> </td>
+          </tr>
+      </tbody>
+      <% i += 1 %>
+    </table>
+  <% end %>
+  <br>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

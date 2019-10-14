@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<% if cookies[:truck].blank? %>
+  <h2>Enter Truck</h2>
+
+  <%= form_with url: home_selected_path, local: true, method: 'get' do |f| %>
+    <%= f.label(:truck, 'Truck number:') %>
+    <%= f.text_field :truck, {id: "truck"} %><br>
+    <%= f.submit "Enter" %>
+  <% end %>
+<% else %>
+  <h2>For refusal click link below</h2>
+  <%= link_to 'Refusal', refusals_search_path, class: "btn btn-primary" %>
+  <br>
+  <h2>For return authorization (RA) click link below</h2>
+  <%= link_to 'RA', returns_search_path, class: "btn btn-primary" %>
+<% end %>

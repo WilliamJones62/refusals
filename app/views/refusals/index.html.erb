@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Refusals</h1>
+
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Invoice numb</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @refusals.each do |refusal| %>
+      <tr>
+        <td><%= refusal.invoice_numb %></td>
+        <td><%= link_to 'Edit', edit_refusal_path(refusal) %></td>
+        <td><%= link_to 'Delete', refusal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

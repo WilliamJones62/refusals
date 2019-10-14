@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>RAs</h1>
+
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Order numb</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @returns.each do |ra| %>
+      <tr>
+        <td><%= ra.order_numb %></td>
+        <td><%= link_to 'Edit', edit_return_path(ra) %></td>
+        <td><%= link_to 'Delete', ra, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
