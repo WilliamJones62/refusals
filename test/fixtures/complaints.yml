@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: MyString
+  invoice: MyString
+  part: MyString
+  part_count: 1
+  issue: MyString
+  issue_date: 2019-11-20
+
+two:
+  user: MyString
+  invoice: MyString
+  part: MyString
+  part_count: 1
+  issue: MyString
+  issue_date: 2019-11-20

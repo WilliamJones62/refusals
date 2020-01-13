@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190829182656) do
+ActiveRecord::Schema.define(version: 20191230204936) do
+
+  create_table "complaints", force: :cascade do |t|
+    t.string "user"
+    t.string "invoice"
+    t.string "part"
+    t.integer "part_count"
+    t.string "issue"
+    t.date "issue_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+    t.string "lot"
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string "badge"
@@ -27,6 +40,8 @@ ActiveRecord::Schema.define(version: 20190829182656) do
     t.string "uom"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "order_numb"
+    t.string "lot"
   end
 
   create_table "orditems", force: :cascade do |t|

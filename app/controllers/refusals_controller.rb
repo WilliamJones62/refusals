@@ -27,6 +27,23 @@ class RefusalsController < ApplicationController
 
     respond_to do |format|
       if @refusal.save
+        @refusal.parts.each do |p|
+          if @quality_issue.include?(p.reason)
+            invitem = Invitem.find_by invoice_numb: @refusal.invoice_numb, part_code: p.part_code
+            c = Complaint.new
+            c.user = current_user.email
+            c.part = p.part_code
+            c.part_count = p.qty
+            c.issue = p.reason
+            c.issue_date = p.created_at
+            c.invoice = @refusal.invoice_numb
+            c.status = 'ACTIVE'
+            if invitem
+              c.lot = invitem.lot
+            end
+            c.save
+          end
+        end
         format.html { redirect_to action: "search", notice: 'Refusal was successfully created.' }
       else
         format.html { render :new }
@@ -38,6 +55,39 @@ class RefusalsController < ApplicationController
   def update
     respond_to do |format|
       if @refusal.update(refusal_params)
+        @refusal.parts.each do |p|
+          if @quality_issue.include?(p.reason)
+            c = Complaint.find_by user: current_user.email, part: p.part_code, issue_date: p.created_at
+            if !c.blank?
+              # updating an existing complaint
+              c.issue = p.reason
+              c.part_count = p.qty
+              c.save
+            else
+              # need to create a new complaint
+              invitem = Invitem.find_by invoice_numb: @refusal.invoice_numb, part_code: p.part_code
+              c = Complaint.new
+              c.user = current_user.email
+              c.part = p.part_code
+              c.part_count = p.qty
+              c.issue = p.reason
+              c.issue_date = p.created_at
+              c.invoice = @refusal.invoice_numb
+              c.status = 'ACTIVE'
+              if invitem
+                c.lot = invitem.lot
+              end
+              c.save
+            end
+          else
+            # check if a complaint exists
+            c = Complaint.find_by user: current_user.email, part: p.part_code, issue_date: p.created_at
+            if !c.blank?
+              # this is no longer a quality issue so delete the complaint
+              c.delete
+            end
+          end
+        end
         format.html { redirect_to action: "search", notice: 'Refusal was successfully updated.' }
       else
         format.html { render :edit }
@@ -77,6 +127,7 @@ class RefusalsController < ApplicationController
 
     def build_reasons
       @reason = ['BUTCHERING', 'FOREIGN MATERIAL', 'HANDLING', 'LOOSE/BLOWN BAG', 'MISSING', 'PRODUCT SPEC.', 'SHELF LIFE', 'TEMPERATURE', 'WRONG ITEM']
+      @quality_issue = ['BUTCHERING', 'FOREIGN MATERIAL', 'HANDLING', 'LOOSE/BLOWN BAG', 'PRODUCT SPEC.', 'SHELF LIFE', 'TEMPERATURE']
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
