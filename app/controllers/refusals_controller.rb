@@ -40,6 +40,7 @@ class RefusalsController < ApplicationController
             c.status = 'ACTIVE'
             if invitem
               c.lot = invitem.lot
+              c.order = invitem.order_numb
             end
             c.save
           end
@@ -126,7 +127,7 @@ class RefusalsController < ApplicationController
     end
 
     def build_reasons
-      @reason = ['BUTCHERING', 'FOREIGN MATERIAL', 'HANDLING', 'LOOSE/BLOWN BAG', 'MISSING', 'PRODUCT SPEC.', 'SHELF LIFE', 'TEMPERATURE', 'WRONG ITEM']
+      @reason = ['BUTCHERING', 'FOREIGN MATERIAL', 'HANDLING', 'LOOSE/BLOWN BAG', 'MISSING', 'NON-QUALITY', 'PRODUCT SPEC.', 'SHELF LIFE', 'TEMPERATURE', 'WRONG ITEM']
       @quality_issue = ['BUTCHERING', 'FOREIGN MATERIAL', 'HANDLING', 'LOOSE/BLOWN BAG', 'PRODUCT SPEC.', 'SHELF LIFE', 'TEMPERATURE']
     end
 

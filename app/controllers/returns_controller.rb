@@ -25,6 +25,25 @@ class ReturnsController < ApplicationController
 
     respond_to do |format|
       if @return.save
+        @return.return_parts.each do |p|
+          ordhead = Ordhead.find_by order_numb: @return.order_numb
+          invitem = Invitem.find_by order_numb: @return.order_numb, part_code: p.part_code
+          c = Complaint.new
+          c.user = current_user.email
+          c.part = p.part_code
+          c.part_count = p.qty
+          if ordhead
+            c.issue = ordhead.return_reason
+          end
+          c.issue_date = p.created_at
+          c.order = @return.order_numb
+          c.status = 'ACTIVE'
+          if invitem
+            c.lot = invitem.lot
+            c.invoice = invitem.invoice_numb
+          end
+          c.save
+        end
         format.html { redirect_to action: "search", notice: 'RA was successfully created.' }
       else
         format.html { render :new }
@@ -36,6 +55,25 @@ class ReturnsController < ApplicationController
   def update
     respond_to do |format|
       if @return.update(return_params)
+        @return.return_parts.each do |p|
+          ordhead = Ordhead.find_by order_numb: @return.order_numb
+          invitem = Invitem.find_by order_numb: @return.order_numb, part_code: p.part_code
+          c = Complaint.new
+          c.user = current_user.email
+          c.part = p.part_code
+          c.part_count = p.qty
+          if ordhead
+            c.issue = ordhead.return_reason
+          end
+          c.issue_date = p.created_at
+          c.order = @return.order_numb
+          c.status = 'ACTIVE'
+          if invitem
+            c.lot = invitem.lot
+            c.invoice = invitem.invoice_numb
+          end
+          c.save
+        end
         format.html { redirect_to action: "search", notice: 'Return was successfully updated.' }
       else
         format.html { render :edit }
