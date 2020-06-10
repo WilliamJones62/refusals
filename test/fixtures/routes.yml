@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dueout_date: 2020-06-04
+  order_numb: MyString
+  cust_code: MyString
+  shipto_code: MyString
+  shipname: MyString
+  route_code: MyString
+  stop_no: MyString
+
+two:
+  dueout_date: 2020-06-04
+  order_numb: MyString
+  cust_code: MyString
+  shipto_code: MyString
+  shipname: MyString
+  route_code: MyString
+  stop_no: MyString

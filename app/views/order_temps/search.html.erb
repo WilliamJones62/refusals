@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Order Temperature</h2>
+<h3>Search</h3>
+
+<%= form_with url: order_temps_find_path, local: true, method: 'get' do |f| %>
+  <%= f.label:route, 'Route:' %>
+  <%= f.text_field :route, id: :order_temp_route %>
+  <%= f.submit "Submit" %>
+<% end %>

@@ -1,0 +1,27 @@
+<%= form_with(model: order_temp, local: true) do |form| %>
+  <% if order_temp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ra.errors.count, "error") %> prohibited this order_temp from being saved:</h2>
+
+      <ul>
+      <% order_temp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :truck %>
+    <%= form.text_field :truck, :value => cookies[:truck], readonly: true %>
+    <%= form.label :order_numb %>
+    <%= form.text_field :order_numb, :value => $order_numb, readonly: true %>
+    <%= form.label :temperature %>
+    <%= form.number_field :temperature, id: :order_temp_temperature, min: 10, step: 0.1, max: 100 %> </td>
+  </div>
+
+  <br>
+  <div class="actions">
+    <%= form.submit "Confirm Temp" %>
+  </div>
+<% end %>

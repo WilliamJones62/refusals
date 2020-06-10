@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200115183024) do
+ActiveRecord::Schema.define(version: 20200605150226) do
 
   create_table "complaints", force: :cascade do |t|
     t.string "user"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20200115183024) do
     t.datetime "updated_at", null: false
     t.string "order_numb"
     t.string "lot"
+  end
+
+  create_table "order_temps", force: :cascade do |t|
+    t.string "order_numb"
+    t.decimal "temperature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "ordheads", force: :cascade do |t|
@@ -105,6 +113,18 @@ ActiveRecord::Schema.define(version: 20200115183024) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "truck"
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.date "dueout_date"
+    t.string "order_numb"
+    t.string "cust_code"
+    t.string "shipto_code"
+    t.string "shipname"
+    t.string "route_code"
+    t.float "stop_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trucks", force: :cascade do |t|

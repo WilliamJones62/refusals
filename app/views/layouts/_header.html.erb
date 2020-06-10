@@ -3,12 +3,14 @@
 <span id="navbar">
   <% if user_signed_in? %>
     <% if !cookies[:truck].blank? %>
+      <span><%= link_to 'Temperature', order_temps_search_path, class: "btn btn-primary" %></span>
       <span><%= link_to 'Refusal', refusals_search_path, class: "btn btn-primary" %></span>
       <span><%= link_to 'RA', returns_search_path, class: "btn btn-primary" %></span>
     <% end %>
     <span><%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %></span>
     <% if current_user.email == 'admin' %>
       <span><%= link_to 'Sign up', new_user_registration_path, class: "btn btn-primary" %></span>
+      <span><%= link_to 'Temperatures', order_temps_path, class: "btn btn-primary" %></span>
       <span><%= link_to 'Refusals', refusals_path, class: "btn btn-primary" %></span>
       <span><%= link_to 'RAs', returns_path, class: "btn btn-primary" %></span>
     <% end %>
@@ -16,7 +18,7 @@
     <span><%= link_to 'Sign in', new_user_session_path, class: "btn btn-primary" %></span>
   <% end %>
 </span>
-<h1 class="title">Refusals and RAs
+<h1 class="title">Temperatures, Refusals and RAs
 </h1>
 <% if user_signed_in? %>
   <span>Signed in as <%= current_user.email %></span>

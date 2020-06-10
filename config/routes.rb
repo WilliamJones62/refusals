@@ -3,6 +3,11 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   devise_for :users, controllers: { registrations: "users/registrations" }
+  get 'order_temps/list' => 'order_temps#list'
+  get 'order_temps/selected' => 'order_temps#selected'
+  get 'order_temps/search'
+  get 'order_temps/find'
+  resources :order_temps
   get 'returns/search'
   get 'returns/find'
   resources :returns

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Stops for route <%= $route %></h2>
+
+  <%= form_with url: order_temps_selected_path, local: true, method: 'get' do |f| %>
+    <table id="normal_dt"  class="stripe" class="mytable" class="display compact" cellspacing="0" >
+      <thead>
+        <tr>
+          <th>Stop number</th>
+          <th>Ship to</th>
+          <th>Order number</th>
+          <th>Temperature</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% x = 0 %>
+        <% @stops.each do |stop| %>
+          <% x += 1 %>
+          <% order_numb_id = "order_numb"+x.to_s %>
+          <% temperature_id = "temperature"+x.to_s %>
+          <tr>
+            <td>&nbsp;&nbsp;<%= stop[:stop_no] %></td>
+            <td>&nbsp;&nbsp;<%= stop[:shipname] %></td>
+            <td>&nbsp;&nbsp;<%= f.text_field order_numb_id, value: stop[:order_numb], readonly: true %></td>
+            <td>&nbsp;&nbsp;<%= f.number_field temperature_id, {id: temperature_id, max: 99, min: 10, step: 0.1, value: stop[:temperature]} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= f.submit "Enter temperature" %>
+<% end %>

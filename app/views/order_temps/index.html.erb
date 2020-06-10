@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Order Temperatures</h1>
+
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Order numb</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @order_temps.each do |o| %>
+      <tr>
+        <td><%= o.order_numb %></td>
+        <td><%= link_to 'Edit', edit_order_temp_path(o) %></td>
+        <td><%= link_to 'Delete', o, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

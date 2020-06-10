@@ -5,6 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable
 
+  has_many :order_temps
   has_many :refusals
   has_many :returns
 end

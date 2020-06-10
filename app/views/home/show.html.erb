@@ -9,6 +9,9 @@
     <%= f.submit "Enter" %>
   <% end %>
 <% else %>
+  <h2>For order temperature click link below</h2>
+  <%= link_to 'Temperature', order_temps_search_path, class: "btn btn-primary" %>
+  <br>
   <h2>For refusal click link below</h2>
   <%= link_to 'Refusal', refusals_search_path, class: "btn btn-primary" %>
   <br>
